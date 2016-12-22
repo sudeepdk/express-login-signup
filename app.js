@@ -9,12 +9,15 @@ var express = require('express'),
     hash = require('./pass').hash;
 
 var app = express();
+
+
 var mongoose = require('mongoose')
 require('./config/db');// keep the connection open to db when app boots/reboots
 
 var usr   = require('./models/users.js');
 
 var helper = require('./helper/util.js')
+
 
 /*
 Middlewares and configurations 
@@ -23,9 +26,12 @@ app.configure(function () {
     app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
     app.use(express.cookieParser('Authentication'));
     app.use(express.session());
-    app.use(express.static(path.join(__dirname, 'public')));
-    app.set('views', __dirname + '/views');
-    app.set('view engine', 'jade');
+    app.use(express.static(__dirname + '/public'));
+});
+
+app.set('view engine', 'ejs');
+app.set('view options', {
+    layout: false
 });
 
 app.use(function (req, res, next) {
@@ -46,7 +52,8 @@ app.get("/", function (req, res) {
     if (req.session.user) {
         res.send("Welcome " + req.session.user.username + "<br>" + "<a href='/logout'>logout</a>");
     } else {
-        res.send("<a href='/login'> Login</a>" + "<br>" + "<a href='/signup'> Sign Up</a>");
+        // res.send("<a href='/login'> Login</a>" + "<br>" + "<a href='pages/signup'> Sign Up</a>");
+        res.render('pages/index');
     }
 });
 
@@ -54,7 +61,7 @@ app.get("/signup", function (req, res) {
     if (req.session.user) {
         res.redirect("/");
     } else {
-        res.render("signup");
+        res.render('pages/signup');
     }
 });
 
