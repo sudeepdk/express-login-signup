@@ -14,13 +14,13 @@
 			<div class="col-sm-8">
 			
 				<div class="jumbotron">
-					<h1>Signup form</h1>
+					<h1>login form</h1>
 					<p>Welcome to templating using EJS</p>
 				</div>
 				
 			</div>
 			
-			<form action="/signup" id="signup" method="POST">
+<form action="/login" id="login" method="POST">
     <lable for="username">
         User Name
     </lable>
@@ -29,10 +29,11 @@
         Password
     </lable>
     <input id="password" name="password" type="text"/>
-    <input type="submit" value="signup"/>
+    <input type="submit" value="Log In"/>
 </form>
-<span class="alert alert-success" role="alert" style="padding:0px; border:0">  <%= message %></span>
-<h1></h1>
+<!-- <div class="alert alert-success" role="alert"> <strong>Well done!</strong> You successfully read this important alert message. </div> -->
+
+  <%= message %>
 		</div>
 	</main>
 

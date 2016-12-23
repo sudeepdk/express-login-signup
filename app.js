@@ -29,19 +29,19 @@ app.configure(function () {
     app.use(express.static(__dirname + '/public'));
 });
 
+// 
+// set the view engine to ejs
 app.set('view engine', 'ejs');
-app.set('view options', {
-    layout: false
-});
 
+// handle success error 
 app.use(function (req, res, next) {
     var err = req.session.error,
         msg = req.session.success;
     delete req.session.error;
     delete req.session.success;
     res.locals.message = '';
-    if (err) res.locals.message = '<p class="msg error">' + err + '</p>';
-    if (msg) res.locals.message = '<p class="msg success">' + msg + '</p>';
+    if (err) res.locals.message =  err ;
+    if (msg) res.locals.message =  msg ;
     next();
 });
 /*
@@ -65,6 +65,10 @@ app.get("/signup", function (req, res) {
     }
 });
 
+// about page 
+app.get('/about', function(req, res) {
+    res.render('pages/about');
+});
 app.post("/signup", helper.userExist, function (req, res) {
     var password = req.body.password;
     var username = req.body.username;
@@ -80,6 +84,8 @@ app.post("/signup", helper.userExist, function (req, res) {
             helper.authenticate(newUser.username, password, function(err, user){
                 if(user){
                     req.session.regenerate(function(){
+
+
                         req.session.user = user;
                         req.session.success = 'Authenticated as ' + user.username + ' click to <a href="/logout">logout</a>. ' + ' You may now access <a href="/restricted">/restricted</a>.';
                         res.redirect('/');
@@ -91,7 +97,7 @@ app.post("/signup", helper.userExist, function (req, res) {
 });
 
 app.get("/login", function (req, res) {
-    res.render("login");
+    res.render("pages/login");
 });
 
 app.post("/login", function (req, res) {
@@ -99,10 +105,13 @@ app.post("/login", function (req, res) {
         if (user) {
 
             req.session.regenerate(function () {
+                res.locals.user = user;
 
                 req.session.user = user;
                 req.session.success = 'Authenticated as ' + user.username + ' click to <a href="/logout">logout</a>. ' + ' You may now access <a href="/restricted">/restricted</a>.';
-                res.redirect('/');
+                // res.redirect('/');
+                res.render('pages/about')
+
             });
         } else {
             req.session.error = 'Authentication failed, please check your ' + ' username and password.';
@@ -122,5 +131,5 @@ app.get('/profile', helper.requiredAuthentication, function (req, res) {
 });
 
 
-http.createServer(app).listen(3000);
-console.log('server running on 3000')
+http.createServer(app).listen(3001);
+console.log('server running on 3001')
