@@ -8,9 +8,27 @@
 <body class="container">
 
     <header>
-        <% include ../partials/header %>
+    <nav class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">Test</a>
+		</div>
+
+		<ul class="nav navbar-nav">
+			<li><a href="/">Home</a></li>
+				    <% if (! user) {%>
+
+			<li><a href="/signup">signup</a></li>
+			<li><a href="/login">login</a></li>
+			          <% } %>
+
+     	</ul>
+	</div>
+</nav>
    </header>
    <p>Hi user<%= user.username %></p>
+   <pre> <%= user %></pre>
    <a href='/logout'>logout</a>
     <footer>
         <% include ../partials/footer %>

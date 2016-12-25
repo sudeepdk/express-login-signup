@@ -1,45 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<% include ../partials/head %>
-</head>
-<body class="container">
+    <head>
+        <% include ../partials/head %>
+    </head>
+    <body class="container">
+        <main>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <form action="/login" id="login" method="POST">
+                        <fieldset>
+                       <p> <%= message %></p>
+                            <div class="form-group">
+                                <label for="username">
+                                    User name:
+                                </label>
+                                <input class="form-control" id="txt" name="username" onkeyup="Validate(this)" placeholder="minimum 6 letters" required="" type="text"/>
+                                <div id="errLast">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">
+                                    <span class="req">
+                                        *
+                                    </span>
+                                    Password:
+                                </label>
+                                <input class="form-control inputpass" id="password" maxlength="16" minlength="4" name="password" required="" type="password"/>
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-success" type="submit" value="Log In"/>
+                            </div>
+                                        <span>don't have account<a href="/signup">  please register </a> </span>
 
-	<header>
-		<% include ../partials/header %>
-	</header>
-
-	<main>
-		<div class="row">
-			<div class="col-sm-8">
-			
-				<div class="jumbotron">
-					<h1>login form</h1>
-					<p>Welcome to templating using EJS</p>
-				</div>
-				
-			</div>
-			
-<form action="/login" id="login" method="POST">
-    <lable for="username">
-        User Name
-    </lable>
-    <input id="username" name="username" type="text"/>
-    <lable for="password">
-        Password
-    </lable>
-    <input id="password" name="password" type="text"/>
-    <input type="submit" value="Log In"/>
-</form>
-<!-- <div class="alert alert-success" role="alert"> <strong>Well done!</strong> You successfully read this important alert message. </div> -->
-
-  <%= message %>
-		</div>
-	</main>
-
-	<footer>
-		<% include ../partials/footer %>
-	</footer>
-	
-</body>
+                            <!-- ends login form -->
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </body>
 </html>
+<script type="text/javascript">
+    document.getElementById("field_terms").setCustomValidity("Please indicate that you accept the Terms and Conditions");
+</script>
+<!-- ends col-6 -->
+
+<footer>
+    <% include ../partials/footer %>
+</footer>

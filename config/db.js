@@ -46,11 +46,5 @@ process.on('SIGINT', function () {
   })
 })
 
-// PaaS appln shutdown. same for aws/digitalocean
-process.on('SIGTERM', function () {
-  peacefulShutdown('DigitalOcean app shutdown', function () {
-    process.exit(0)
-  })
-})
 
 mongoose.set('debug', true)
